@@ -3,7 +3,7 @@
 #http://www.boche.net/blog/index.php/2015/08/09/rhel-7-open-vm-tools-and-guest-customization/
 #
 
-packages=vim screen net-tools
+packages="vim screen net-tools"
 
 #http://www.itsprite.com/centos-7-change-network-interface-name-from/
 # Fix ifconfig to match existing templating usage
@@ -17,14 +17,14 @@ sed -i.bak 's/.*GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="rd.lvm.lv=centos/swap 
 grub2-mkconfig  -o /boot/grub2/grub.cfg
 
 # Enable network, wipe device and UUID, change name to eth0
-sed -i.bak 's/NAME=.*/NAME=eth0/' ${eth_file}
+sed -i.bak "s/NAME=.*/NAME=${eth_name}/" ${eth_file}
 sed -i.bak 's/ONBOOT=.*/ONBOOT=yes/' ${eth_file}
 sed -i.bak '/UUID=.*/d' ${eth_file}
 sed -i.bak '/DEVICE=.*/d' ${eth_file}
 
 
 # Disable ipv6
-echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
+echo 'net.ipv6.conf.all.disable_ipv6 = 1' > /etc/sysctl.d/disableipv6.conf
 sysctl -p
 
 # Disable selinux
