@@ -8,15 +8,20 @@ packages=vim screen net-tools
 #http://www.itsprite.com/centos-7-change-network-interface-name-from/
 # Fix ifconfig to match existing templating usage
 # fixup eno16777736 -> eth0
-mv /etc/sysconfig/network-scripts/ifcfg-eno16777736  /etc/sysconfig/network-scripts/ifcfg-eth0
+eth_name=eth0
+eth_file=/etc/sysconfig/network-scripts/ifcfg-${eth_name}
+mv /etc/sysconfig/network-scripts/ifcfg-eno16777736  ${eth_file}
 
 # fixup grub to match
-sed -i.bak 's/.*GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="rd.lvm.lv=centos/swap vconsole.font=latarcyrheb-sun16 rd.lvm.lv=centos/root crashkernel=auto  vconsole.keymap=us rhgb quiet net.ifnames=0 biosdevname=0"/' /etc/sysconfig/network-scripts/ifcfg-eth0
+sed -i.bak 's/.*GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="rd.lvm.lv=centos/swap vconsole.font=latarcyrheb-sun16 rd.lvm.lv=centos/root crashkernel=auto  vconsole.keymap=us rhgb quiet net.ifnames=0 biosdevname=0"/' /etc/sysconfig/grub
 grub2-mkconfig  -o /boot/grub2/grub.cfg
 
-# TODO: Enable network, wipe devID, change name to eth0
-#
-#
+# Enable network, wipe device and UUID, change name to eth0
+sed -i.bak 's/NAME=.*/NAME=eth0/' ${eth_file}
+sed -i.bak 's/ONBOOT=.*/ONBOOT=yes/' ${eth_file}
+sed -i.bak '/UUID=.*/d' ${eth_file}
+sed -i.bak '/DEVICE=.*/d' ${eth_file}
+
 
 # Disable ipv6
 echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
