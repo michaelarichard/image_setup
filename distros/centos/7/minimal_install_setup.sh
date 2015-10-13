@@ -28,7 +28,7 @@ echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
 sysctl -p
 
 # Disable selinux
-sed -i.bak 's/SELINUXTYPE=.*/SELINUXTYPE=permissive/g' /etc/sysconfig/selinux
+sed -i.bak 's/SELINUX=.*/SELINUX=permissive/g' /etc/sysconfig/selinux
 setenforce 0
 
 # disable firewalld
