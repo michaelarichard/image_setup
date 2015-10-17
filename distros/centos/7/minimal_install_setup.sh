@@ -49,8 +49,9 @@ yum update -y
 for i in `find /var/log/. -type f`; do >${i} ; done
 
 # delete this script so it doesn't get run again
-me=`basename "$0"`
-rm ${me}
+if [ -f minimal_install_setup.sh ] ; then
+  rm minimal_install_setup.sh
+fi
 
 # clear history
 > /root/.bash_history
