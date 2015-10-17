@@ -35,8 +35,23 @@ setenforce 0
 systemctl mask firewalld
 systemctl stop firewalld
 
+# ssh_host_keys
+rm -rf /etc/ssh/ssh_host_*
+/bin/systemctl restart  sshd.service
+
 # upgrade
 yum install ${packages} -y
 yum update -y 
 
+# Logs to clear
+for i in `find /var/log/. -type f`; do >${i} ; done
+
+# delete this script so it doesn't get run again
+me=`basename "$0"`
+rm ${me}
+
+# clear history
+history -c
+
+# shutdown and restart
 shutdown -r now
