@@ -2,7 +2,7 @@
 # lots of notes on why
 #http://www.boche.net/blog/index.php/2015/08/09/rhel-7-open-vm-tools-and-guest-customization/
 #
-vmware_packages=open-vm-tools open-vm-tools-deploypkg perl gcc make kernel-headers kernel-devel
+vmware_packages="open-vm-tools open-vm-tools-deploypkg perl gcc make kernel-headers kernel-devel"
 # vmware fix
 #https://lonesysadmin.net/2015/01/06/centos-7-refusing-vmware-vsphere-guest-os-customizations/
 rm -f /etc/redhat-release && touch /etc/redhat-release && echo "Red Hat Enterprise Linux Server release 7.0 (Maipo)" > /etc/redhat-release
