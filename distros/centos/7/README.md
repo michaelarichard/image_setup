@@ -17,8 +17,9 @@ If using vmware fusion:
 
 5) Import to vmware using powerCLI:
 
-
-$MyCluster= Get-Cluster $Cluster
+$cluster=ProdCluster
+$datastorecluster=ProdCluster
+$MyCluster= Get-Cluster $cluster
 $MyDataStoreCluster= get-datastoreCluster -name $datastorecluster
 $MyHost= Get-Cluster $MyCluster | Get-VMHost| where-object {$_.ConnectionState -eq 'Connected'} | Sort-Object CPUUsageMhz | select-object -first 1
 Import-VApp -source .\centos7_minimal_final1.ova -Location $MyCluster -Datastore $MyDatastore -Name "CentOS_7_minimal_20151019" -vmhost $MyHost
