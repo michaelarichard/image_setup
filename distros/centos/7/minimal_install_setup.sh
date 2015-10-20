@@ -31,6 +31,7 @@ sysctl -p
 
 # Disable selinux
 sed -i'' 's/SELINUX=.*/SELINUX=permissive/g' /etc/sysconfig/selinux
+sed -i'' 's/SELINUX=.*/SELINUX=permissive/g' /etc/selinux/config
 setenforce 0
 
 # disable firewalld
