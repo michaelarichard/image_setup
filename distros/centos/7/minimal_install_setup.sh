@@ -1,5 +1,12 @@
 #!/bin/sh
 # lots of notes on why
+#
+# to enable network before you can run this
+#
+# sed -i'' "s/ONBOOT=.*/ONBOOT=yes/g" /etc/sysconfig/network-scripts/ifcfg-eno16777736
+# service network restart
+# ip addr show
+#
 #http://www.boche.net/blog/index.php/2015/08/09/rhel-7-open-vm-tools-and-guest-customization/
 #
 

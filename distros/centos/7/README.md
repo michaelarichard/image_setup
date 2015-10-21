@@ -1,6 +1,10 @@
 # image_setup
 
 1) Start with a minimal centos install.
+# Enable network
+# sed -i'' "s/ONBOOT=.*/ONBOOT=yes/g" /etc/sysconfig/network-scripts/ifcfg-eno16777736
+# service network restart
+# ip addr show
 
 2) Run this to disable firewall, selinux, and fixup ethernet. (Remove GUID, Device ID, and use class eth0 naming)
 
@@ -17,6 +21,7 @@ If using vmware fusion:
 
 5) Import to vmware using powerCLI:
 
+# TODO: This doesn't work even with -force for some reason, manually import OVF using GUI for now
 $cluster=ProdCluster
 $datastorecluster=ProdCluster
 $MyCluster= Get-Cluster $cluster
